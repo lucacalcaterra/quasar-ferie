@@ -7,11 +7,6 @@ const $q = useQuasar();
 //$q.localStorage.set("nome", "mario");
 const value = $q.localStorage.getItem("nome");
 
-const db = new Dexie("FriendDatabase");
-db.version(1).stores({
-  friends: "++id,name,age",
-});
-
 //console.log(re);
 </script>
 
@@ -42,8 +37,22 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "IndexPage",
   methods: {
-    saveDb() {
-      console.log("ciao");
+    async saveDb() {
+      const db = new Dexie("FriendDatabase");
+      db.version(1).stores({
+        friends: "++id,name,age",
+      });
+
+      //
+      // Manipulate and Query Database
+      //
+      try {
+        await db.friends.add({ name: "Josephine", age: 21 });
+        const youngFriends = await db.friends.where("age").below(25).toArray();
+        alert(`My young friends: ${JSON.stringify(youngFriends)}`);
+      } catch (e) {
+        alert(`Error: ${e}`);
+      }
     },
   },
 });
