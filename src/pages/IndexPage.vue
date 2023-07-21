@@ -1,13 +1,12 @@
 <script setup>
 import { useQuasar } from "quasar";
-import Dexie from "dexie";
 
 const $q = useQuasar();
 
 //$q.localStorage.set("nome", "mario");
 const value = $q.localStorage.getItem("nome");
 
-//console.log(re);
+console.log(value);
 </script>
 
 <template>
