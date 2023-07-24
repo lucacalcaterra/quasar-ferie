@@ -1,5 +1,8 @@
 <script setup>
 import { useQuasar } from "quasar";
+import { useCounterStore } from "stores/eventi";
+
+const store = useCounterStore();
 
 const $q = useQuasar();
 
@@ -26,7 +29,8 @@ console.log(value);
       @click-head-workweek="onClickHeadWorkweek"
       @click-head-day="onClickHeadDay"
     /> -->
-    <q-btn @click="saveDb()" label="prova" />
+    <div>{{ store.counter }}</div>
+    <q-btn @click="store.increment()" label="prova" />
   </q-page>
 </template>
 
